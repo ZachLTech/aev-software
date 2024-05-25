@@ -17,15 +17,24 @@ const httpServer = createServer(server);
 const io = new Server(httpServer);
 const connections = [];
 
+class BmsData {
+    constructor(voltage,cells,mean,stddev,current) {
+        this.voltage = voltage;
+        this.cells = cells;
+        this.mean = mean;
+        this.stddev = stddev;
+        this.current = current;
+
+    }
+}
+
 byteparser.on('data', (stream) => { //reads data
     let data = stream.toString().split('\n');
     let battery_data = {};
     for (let item of data) {
         item = item.trim().split(' ');
         item = item.filter((el) => el != '');
-        if (item.includes(':') && !(item.includes('uptime')) && !(item.includes('alerts'))) {
-            battery_data[item[0]] = item[2];
-        }
+        
     }
     io.emit('data', battery_data);
 });
@@ -34,7 +43,7 @@ port.on('error', (err) => {io.emit('error', err)});
 io.on('connection', (socket) => {
     console.log('New connection!');
     connections.push(socket);
-    if(writeData()) {
+    if(writeData('sh\n')) {
         let interval = setInterval(() => {
             if(connections.length < 1) {
                 clearInterval(interval);
