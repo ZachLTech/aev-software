@@ -1,37 +1,25 @@
 {
-  "name": "aev-software",
-  "version": "1.0.0",
-  "main": "electron.mjs",
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "main": "dist-electron/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron .",
-    "react": "react-scripts start"
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "electron": "^30.0.6",
-    "express": "^4.19.2",
-    "fs": "^0.0.1-security",
-    "path": "^0.12.7",
-    "serialport": "^12.0.0",
-    "socket.io": "^4.7.5"
+    "nuxt": "^3.11.2",
+    "vue": "^3.4.27",
+    "vue-router": "^4.3.2"
   },
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "devDependencies": {
-    "webpack": "^5.91.0",
-    "webpack-cli": "^5.1.4"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "electron": "^30.0.8",
+    "electron-builder": "^24.13.3",
+    "nuxt-electron": "^0.7.0",
+    "vite-plugin-electron": "^0.28.7",
+    "vite-plugin-electron-renderer": "^0.14.5"
   }
 }
