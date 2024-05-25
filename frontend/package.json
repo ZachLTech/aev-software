@@ -5,13 +5,13 @@
   "main": "dist-electron/main.js",
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "nuxt dev --no-fork",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "nuxt": "^3.11.2",
+    "nuxt": "3.6.5",
     "vue": "^3.4.27",
     "vue-router": "^4.3.2"
   },

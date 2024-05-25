@@ -1,6 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: false },
+  mode: "spa",
   modules: ['nuxt-electron'],
   electron: {
     build: [
@@ -10,10 +11,13 @@ export default defineNuxtConfig({
       },
     ],
   },
-  ssr: false,
+  ssr: true,
   router: {
     options: {
       hashMode: true
     }
+  },
+  devServer: {
+    port: 5151
   }
 })

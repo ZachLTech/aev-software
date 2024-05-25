@@ -1,16 +1,20 @@
-import { app as e, BrowserWindow as t } from "electron";
-import { fileURLToPath as i } from "url";
-import n from "path";
-n.dirname(i(import.meta.url));
-function o(r = "/") {
-  new t({
+import { app as o, BrowserWindow as n } from "electron";
+import { fileURLToPath as r } from "url";
+import i from "path";
+i.dirname(r(import.meta.url));
+function e(t = "/") {
+  new n({
     width: 900,
-    height: 700
-  }).loadURL(`${process.env.VITE_DEV_SERVER_URL}/#/${r}`);
+    height: 700,
+    webPreferences: {
+      nodeIntegration: !0,
+      contextIsolation: !1
+    }
+  }).loadURL(`${process.env.VITE_DEV_SERVER_URL}/#/${t}`);
 }
-e.whenReady().then(() => {
-  o(""), o("bms"), o("motorController");
+o.whenReady().then(() => {
+  e(""), e("bms"), e("motorController");
 });
-e.on("window-all-closed", () => {
-  e.quit();
+o.on("window-all-closed", () => {
+  o.quit();
 });
