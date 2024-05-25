@@ -18,23 +18,41 @@ const io = new Server(httpServer);
 const connections = [];
 
 class BmsData {
-    constructor(voltage,cells,mean,stddev,current) {
-        this.voltage = voltage;
-        this.cells = cells;
-        this.mean = mean;
-        this.stddev = stddev;
-        this.current = current;
+    constructor(data) {
+        const voltagere = new RegExp("\\s{4}voltage\\s+:\\s[0-9]{2}\\.[0-9]{2}v");
+        const cellsre = new RegExp("\\s{4}cells\\s+:\\s[0-9]{2}.+");
+        const meanre = new RegExp("\\s{4}mean\\s+:\\s[0-9]{2}\\.[0-9]{2}v");
+        const stddevre = new RegExp("\\s{4}stddev\\s+:\\s[0-9]{2}\\.[0-9]{2}v");
+        const currentre = new RegExp("\\s{4}current\\s+:\\s.[0-9]+\\.[0-9]+A");
+        const socre = new RegExp("\\s{4}soc\\s+:\\s[0-9].*[0-9]*%");
+        for(let item in data) {
+            if(voltagere.test(item)) {
+                this.voltage = item.match(/[0-9]{2}\.[0-9]{2}/)[0];
+            }
+            if(cellsre.test(item)) {
+                this.cells = item.match(/[0-9]{2}/)[0];
+            }
+            if(meanre.test(item)) {
+                this.mean = item.match(/[0-9]{2}\.[0-9]{2}/)[0];
+            }
+            if(stddevre.test(item)) {
+                this.stddev = item.match(/[0-9]{2}\.[0-9]{2}/)[0];
+            }
+            if(currentre.test(item)) {
+                this.current = item.match(/.[0-9]+.[0-9]+/)[0];
+            }
+            if(socre.test(item)) {
+                this.soc = item.match(/[0-9].*[0-9]*/)[0];
+            }
 
+        }
     }
 }
 
 byteparser.on('data', (stream) => { //reads data
     let data = stream.toString().split('\n');
-    let battery_data = {};
     for (let item of data) {
-        item = item.trim().split(' ');
-        item = item.filter((el) => el != '');
-        
+        let battery_data = new BmsData(item);
     }
     io.emit('data', battery_data);
 });
