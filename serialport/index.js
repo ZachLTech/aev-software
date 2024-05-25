@@ -29,19 +29,19 @@ class BmsData {
             if(voltagere.test(item)) {
                 this.voltage = item.match(/[0-9]{2}\.[0-9]{2}/)[0];
             }
-            if(cellsre.test(item)) {
+            else if(cellsre.test(item)) {
                 this.cells = item.match(/[0-9]{2}/)[0];
             }
-            if(meanre.test(item)) {
+            else if(meanre.test(item)) {
                 this.mean = item.match(/[0-9]{2}\.[0-9]{2}/)[0];
             }
-            if(stddevre.test(item)) {
+            else if(stddevre.test(item)) {
                 this.stddev = item.match(/[0-9]{2}\.[0-9]{2}/)[0];
             }
-            if(currentre.test(item)) {
+            else if(currentre.test(item)) {
                 this.current = item.match(/.[0-9]+.[0-9]+/)[0];
             }
-            if(socre.test(item)) {
+            else if(socre.test(item)) {
                 this.soc = item.match(/[0-9].*[0-9]*/)[0];
             }
 
